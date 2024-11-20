@@ -15,7 +15,7 @@ export default function TPV_S_Principal({ navigation }) {
       <View style={styles.grid} >
         {mesas.map((mesa , index) => (
         <Pressable onPress={() => navigation.navigate("Opciones",{ mesa })}>
-          {/*<Text style={styles.optionsTextImg}>Mesa {index+1} </Text> */}
+          {/*<Text style={styles.optionsTextImg}>Mesa {index+1} </Text> titulo */}
         <Image
           style={{
             width: 70,
