@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet,Pressable, onPressFunction, Image } from "react-native";
 
 export default function TPV_S_Principal({ navigation }) {
   const mesas = [1, 2, 3, 4, 5, 6]; // Lista de mesas disponibles
@@ -7,20 +7,28 @@ export default function TPV_S_Principal({ navigation }) {
   return (
     <View style={styles.container}>
       {/* Botón para acceder a otras opciones (no implementado aún) */}
-      <TouchableOpacity style={styles.optionsButton} onPress={() => {}}>
+      <TouchableOpacity style={styles.optionsButton} onPress={() => { }}>
         <Text style={styles.optionsText}>Opciones</Text>
       </TouchableOpacity>
 
       {/* Botones dinámicos para cada mesa */}
-      {mesas.map((mesa) => (
-        <TouchableOpacity
-          key={mesa}
-          style={styles.mesaButton}
-          onPress={() => navigation.navigate("Opciones", { mesa })} // Navegar a opciones con número de mesa
-        >
-          <Text style={styles.mesaText}>Mesa {mesa}</Text>
-        </TouchableOpacity>
+      <View style={styles.grid} >
+        {mesas.map((mesa , index) => (
+        <Pressable onPress={() => navigation.navigate("Opciones",{ mesa })}>
+          {/*<Text style={styles.optionsTextImg}>Mesa {index+1} </Text> */}
+        <Image
+          style={{
+            width: 70,
+            height: 70,
+          }}
+          source={
+            require('./imagenes/imagen3.png')
+          }
+        />
+      </Pressable>
       ))}
+      </View>
+      
     </View>
   );
 }
@@ -32,6 +40,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#f0f0f0",
   },
+  grid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    marginBottom: 20,
+    gap: 0,
+    justifyContent: "space-around", // Espacio equitativo entre los botones
+    width: "100%", // Limitar el ancho de los botones
+    marginVertical: 10, // Margen entre los botones y los demás elementos
+  },
   optionsButton: {
     backgroundColor: "#FFA500",
     padding: 10,
@@ -40,6 +58,11 @@ const styles = StyleSheet.create({
   },
   optionsText: {
     color: "#fff",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  optionsTextImg: {
+    color: "Black",
     fontSize: 18,
     fontWeight: "bold",
   },
