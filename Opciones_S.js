@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   },
   buttons: {
     padding: 18,
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#00bb2d",
     marginVertical: 10, // Espaciado entre botones
     borderRadius: 13,
     width: 200, // Ancho de los botones
@@ -79,11 +79,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   buttonBack: {
-    padding: 18,
+    padding: 5,
     backgroundColor: "red",
     borderRadius: 13,
-    width: 200, // Mismo tamaño que los otros botones
+    width: 150, // Mismo tamaño que los otros botones
     alignItems: "center",
-    marginTop: 20, // Espaciado respecto a los botones de acción
+    marginTop: 40, // Espaciado respecto a los botones de acción
   },
 });

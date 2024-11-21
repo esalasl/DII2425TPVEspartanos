@@ -1,58 +1,31 @@
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
+
+let uris = [
+  { id: "Entrantes", url: "https://img.icons8.com/?size=100&id=xJ2BiIFB18j6&format=png&color=000000" },
+  { id: "Primeros", url: "https://img.icons8.com/?size=100&id=8xDxt7XQuUhy&format=png&color=000000" },
+  { id: "Segundos", url: "https://img.icons8.com/?size=100&id=YzUHQXiJaOmw&format=png&color=000000" },
+  { id: "Postres", url: "https://img.icons8.com/?size=100&id=sWMIYVa4iz3d&format=png&color=000000" },
+  { id: "Bebidas", url: "https://img.icons8.com/?size=100&id=hluDm3PqjTJn&format=png&color=000000" },
+];
+
 
 export default function Insertar({ navigation }) {
+
   return (
     <View style={styles.container}>
       {/* Título de la pantalla */}
       <Text style={styles.title}>Seleccione una categoría</Text>
-
-      {/* Botones de categorías organizados en 3 columnas */}
       <View style={styles.grid}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() =>
-            navigation.navigate("OpcionesCategoria", { categoria: "Entrantes" })
-          }
-        >
-          <Text style={styles.text}>Entrantes</Text>
-        </TouchableOpacity>
+        {/* map para crear y colocar la imagen al boton*/}
+        {uris.map((item) =>
+        (<TouchableOpacity key={item.id} style={styles.button}
+          onPress={() => navigation.navigate("OpcionesCategoria",{categoria :item.id} )}> {/* se le pasa el parametro categoria con valor id */}
 
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() =>
-            navigation.navigate("OpcionesCategoria", { categoria: "Primeros" })
-          }
-        >
-          <Text style={styles.text}>Primeros</Text>
+          <Image style={styles.img} src={item.url} />
+          <Text style={styles.text}> {item.id}</Text>
         </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() =>
-            navigation.navigate("OpcionesCategoria", { categoria: "Segundos" })
-          }
-        >
-          <Text style={styles.text}>Segundos</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() =>
-            navigation.navigate("OpcionesCategoria", { categoria: "Postres" })
-          }
-        >
-          <Text style={styles.text}>Postres</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() =>
-            navigation.navigate("OpcionesCategoria", { categoria: "Bebidas" })
-          }
-        >
-          <Text style={styles.text}>Bebidas</Text>
-        </TouchableOpacity>
+        ))}
       </View>
 
       {/* Botón para regresar a la pantalla anterior */}
@@ -69,6 +42,10 @@ export default function Insertar({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  img: {
+    height: 50, // se le ajustó una medida 
+    width: 50   // a la imagen para que pueda ser visualizada.
+  },
   container: {
     flex: 1,
     justifyContent: "center",
@@ -88,14 +65,14 @@ const styles = StyleSheet.create({
   },
   button: {
     padding: 15,
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#00bb2d",
     margin: 10,
     borderRadius: 8,
-    width: 100,
+    width: 107,
     alignItems: "center",
   },
   text: {
-    color: "white",
+    color: "black",
     fontSize: 16,
     textAlign: "center",
   },
@@ -105,7 +82,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     width: "80%",
   },
-  
+
   actionText: {
     color: "white",
     fontSize: 16,
