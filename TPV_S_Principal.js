@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   },
   mesaButton: {
     padding: 10,
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#00bb2d",
     marginVertical: 5,
     borderRadius: 5,
     width: 150,
