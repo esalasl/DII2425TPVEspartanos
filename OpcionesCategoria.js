@@ -1,5 +1,6 @@
-import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
+import React, { useState } from "react";
+import { Alert,View, Text, TouchableOpacity, StyleSheet, Image, Modal } from "react-native";
+import { TextInput } from "react-native-gesture-handler";
 
 export default function OpcionesCategoria({ route, navigation }) {
   const { categoria } = route.params || { categoria: "sin categoría" }; // Recibe la categoría seleccionada
@@ -53,6 +54,10 @@ case 'Bebidas':
   ];
   break;
 }
+// constante para controlar el modal
+const [modalVisible, setModalVisible] = useState(false);
+// constante para controlar el valor  y cambio
+const [number, onChangeNumber] = React.useState('');
   return (
     <View style={styles.container}>
       {/* Título de la categoría */}
@@ -60,9 +65,28 @@ case 'Bebidas':
 
       {/* Botones de las opciones */}
       <View style={styles.grid}>
-
+        {/* modal para ingresar cantidad de elementos */}
+        <Modal animationType="slide" 
+        transparent={true}
+         visible={modalVisible}
+          onRequestClose={() => {Alert.alert("modal cerrado"); 
+          setModalVisible(!modalVisible)}}>
+              <View style={styles.viewModal}>
+                <View>
+                <Text style={styles.text}>INGRESA LA CANTIDAD</Text>
+                  <TextInput style={styles.input} onChangeText={onChangeNumber}
+                  value={number} keyboardType="numeric"></TextInput>
+                   <TouchableOpacity
+                style={styles.buttonModal}
+                onPress={() => setModalVisible(!modalVisible)}>
+                <Text style={styles.textStyle}>CONFIRMAR</Text>
+              </TouchableOpacity>
+                </View>
+               
+              </View>
+        </Modal>
       {comidas.map((comida) =>
-        (<TouchableOpacity key={comida.id} style={styles.button}
+        (<TouchableOpacity key={comida.id} style={styles.button} onPress={ () => setModalVisible(true)}
          > {/* se le pasa el parametro categoria con valor id */}
 
           <Image style={styles.img} src={comida.url} />
@@ -90,6 +114,27 @@ case 'Bebidas':
 }
 
 const styles = StyleSheet.create({
+  input:{
+    height: 40,
+    margin: 12, // se asignó las medidas para el input
+    borderWidth: 1,
+    padding: 10,
+  },
+  viewModal:{
+    margin: 20,
+    backgroundColor: "#17d244",
+    borderRadius: 20, // medidas para el modal y color
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
   img: {
     height: 50, // se le ajustó una medida 
     width: 50   // a la imagen para que pueda ser visualizada.
@@ -110,6 +155,15 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "center",
     marginBottom: 20,
+  },
+  buttonModal:{
+    padding: 10,
+    backgroundColor: "#f0f0f0",
+    margin: 10,
+    borderRadius: 8,
+    width: 150,
+    alignItems: "center",
+
   },
   button: {
     padding: 10,
