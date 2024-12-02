@@ -1,10 +1,14 @@
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet,Pressable, onPressFunction, Image } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet,Pressable, onPressFunction, Image, ImageBackground } from "react-native";
 
 export default function TPV_S_Principal({ navigation }) {
   const mesas = [1, 2, 3, 4, 5, 6]; // Lista de mesas disponibles
 
   return (
+    <ImageBackground 
+    source = {require('./suelo.jpg')}
+    style={styles.background}>
+    
     <View style={styles.container}>
       {/* Botón para acceder a otras opciones (no implementado aún) */}
       <TouchableOpacity style={styles.optionsButton} onPress={() => { }}>
@@ -30,25 +34,33 @@ export default function TPV_S_Principal({ navigation }) {
       </View>
       
     </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    resizeMode: 'cover', // Ajusta la imagen
+    justifyContent: 'center', // Centra el contenido verticalmente
+    alignItems: 'center', // Centra el contenido horizontalmente
+  },
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#f0f0f0",
+    backgroundColor: "transparent",
   },
   grid: {
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
     marginBottom: 20,
-    gap: 0,
+    marginTop: 10,
+    gap: 10,
     justifyContent: "space-around", // Espacio equitativo entre los botones
     width: "100%", // Limitar el ancho de los botones
-    marginVertical: 10, // Margen entre los botones y los demás elementos
+    marginVertical: 0, // Margen entre los botones y los demás elementos
   },
   optionsButton: {
     backgroundColor: "#FFA500",
