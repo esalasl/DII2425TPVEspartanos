@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import TPV_S_Principal from "./TPV_S_Principal";
 import Opciones_S from "./Opciones_S";
 import Insertar from "./Insertar";
+import Cobrar from "./Cobrar";
 import OpcionesCategoria from "./OpcionesCategoria";
 
 const Stack = createStackNavigator();
@@ -31,11 +32,18 @@ export default function App() {
           component={Insertar}
           options={{ title: "Insertar" }}
         />
-         {/* Pantalla de opciones de la categoría seleccionada (Entrantes, Primeros, ...) */}
+        {/* Pantalla de opciones de la categoría seleccionada (Entrantes, Primeros, ...) */}
         <Stack.Screen
           name="OpcionesCategoria"
           component={OpcionesCategoria}
           options={{ title: "Opciones de Categoría" }}
+        />
+
+        {/* Pantalla de cobro ) */}
+        <Stack.Screen
+          name="Cobrar"
+          component={Cobrar}
+          options={{ title: "Cobranza" }} 
         />
       </Stack.Navigator>
     </NavigationContainer>

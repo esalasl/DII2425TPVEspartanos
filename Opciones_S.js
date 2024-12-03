@@ -4,6 +4,14 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 export default function Opciones_S({ route, navigation }) {
   const { mesa } = route.params || { mesa: "sin información" }; // Número de la mesa recibida
 
+  // Ejemplo de un objeto producto que quieres pasar a la pantalla Cobrar
+  const producto = {
+    nombre: "Producto X",
+    cantidad: 2,
+    precioUnitario: 10.0,
+    precioTotal: 20.0,
+  };
+
   return (
     <View style={styles.container}>
       {/* Título que muestra el número de la mesa */}
@@ -23,7 +31,10 @@ export default function Opciones_S({ route, navigation }) {
           <Text style={styles.textButton}>Comprobar</Text>
         </TouchableOpacity>
         {/* Botón Cobrar */}
-        <TouchableOpacity style={styles.buttons} onPress={() => {}}>
+        <TouchableOpacity 
+          style={styles.buttons} 
+          onPress={() => navigation.navigate("Cobrar", { producto })}  // Pasar el objeto producto a la pantalla Cobrar
+        >
           <Text style={styles.textButton}>Cobrar</Text>
         </TouchableOpacity>
       </View>
