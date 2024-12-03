@@ -23,7 +23,9 @@ export default function Opciones_S({ route, navigation }) {
           <Text style={styles.textButton}>Comprobar</Text>
         </TouchableOpacity>
         {/* Botón Cobrar */}
-        <TouchableOpacity style={styles.buttons} onPress={() => {}}>
+        <TouchableOpacity 
+        style={styles.buttons} 
+        onPress={() => navigation.navigate("Cobrar")}>
           <Text style={styles.textButton}>Cobrar</Text>
         </TouchableOpacity>
       </View>
