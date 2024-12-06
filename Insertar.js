@@ -10,30 +10,25 @@ let uris = [
 ];
 
 
-export default function Insertar({ navigation }) {
+export default function Insertar({ route,navigation }) {
+  const { mesa } = route.params || { mesa: "sin información" };
 
   return (
     <View style={styles.container}>
-      {/* Título de la pantalla */}
       <Text style={styles.title}>Seleccione una categoría</Text>
       <View style={styles.grid}>
-        {/* map para crear y colocar la imagen al boton*/}
         {uris.map((item) =>
         (<TouchableOpacity key={item.id} style={styles.button}
-          onPress={() => navigation.navigate("OpcionesCategoria",{categoria :item.id} )}> {/* se le pasa el parametro categoria con valor id */}
-
+          onPress={() => navigation.navigate("OpcionesCategoria",{categoria :item.id,mesa: mesa} )}>
           <Image style={styles.img} src={item.url} />
           <Text style={styles.text}> {item.id}</Text>
         </TouchableOpacity>
         ))}
       </View>
-
-      {/* Botón para regresar a la pantalla anterior */}
       <View style={styles.backButtonContainer}>
         <TouchableOpacity
           style={styles.backButton}
-          onPress={() => navigation.goBack()}
-        >
+          onPress={() => navigation.goBack()}>
           <Text style={styles.backText}>Volver</Text>
         </TouchableOpacity>
       </View>

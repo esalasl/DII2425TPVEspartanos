@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
 export default function Opciones_S({ route, navigation }) {
@@ -6,29 +6,30 @@ export default function Opciones_S({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      {/* Título que muestra el número de la mesa */}
+    
       <Text style={styles.textTitle}>Opciones para la mesa {mesa}</Text>
 
-      {/* Contenedor de botones de acción (en columna) */}
+  
       <View style={styles.actionButtons}>
-        {/* Botón Insertar */}
+     
         <TouchableOpacity
           style={styles.buttons}
-          onPress={() => navigation.navigate("Insertar")}
+          onPress={() => {navigation.navigate("Insertar",{mesa})
+           
+          }}
         >
           <Text style={styles.textButton}>Insertar</Text>
         </TouchableOpacity>
-        {/* Botón Comprobar */}
+      
         <TouchableOpacity style={styles.buttons} onPress={() => {}}>
           <Text style={styles.textButton}>Comprobar</Text>
         </TouchableOpacity>
-        {/* Botón Cobrar */}
+     
         <TouchableOpacity style={styles.buttons} onPress={() => {}}>
           <Text style={styles.textButton}>Cobrar</Text>
         </TouchableOpacity>
       </View>
 
-      {/* Botón para regresar a la pantalla de mesas */}
       <TouchableOpacity
         style={styles.buttonBack}
         onPress={() => navigation.goBack()}

@@ -1,126 +1,110 @@
 import React, { useState } from "react";
-import { Alert,View, Text, TouchableOpacity, StyleSheet, Image, Modal } from "react-native";
+import { FlatList, View, Text, TouchableOpacity, StyleSheet, Image, Modal } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
+import menuimgd from "./assets/menuimg";
+import { useContext } from "react";
+import { ComandaContext } from "./node_modules/AlmacenDatos";
+
+
 
 export default function OpcionesCategoria({ route, navigation }) {
   const { categoria } = route.params || { categoria: "sin categoría" }; // Recibe la categoría seleccionada
-
+ const {mesa} = route.params;
+  const { comandas, addComanda } = useContext(ComandaContext);
+  const [selectedItem, setSelectedItem] = useState(null);
   let comidas = [];
-// switch que le asigna las comidas dependiendo del tipo
-switch(categoria){
-case 'Entrantes':
- comidas = [
-    { id: "Ensalada Caprese", url: "https://img.icons8.com/?size=100&id=yNIb9bxpGy9g&format=png&color=000000" },
-    { id: "Patatas estilo Andaluz", url: "https://img.icons8.com/?size=100&id=liiPuvI1S4JC&format=png&color=000000" },
-    { id: "Tartar de Tomate", url: "https://img.icons8.com/?size=100&id=BkWfN4ADvwXc&format=png&color=000000" },
-    { id: "Empanadillas", url: "https://img.icons8.com/?size=100&id=zMZO9n0NVrlA&format=png&color=000000" },
-    { id: "Tartar de atun rojo y aguacate", url: "https://img.icons8.com/?size=100&id=jRMjbPInVeXW&format=png&color=000000" },
-  ];
-  break;
-case 'Primeros':
-  comidas = [
-    { id: "Guisantes con Jamon", url: "https://img.icons8.com/?size=100&id=yS57fEIJnYOs&format=png&color=000000" },
-    { id: "Tomates Aliñados", url: "https://img.icons8.com/?size=100&id=BkWfN4ADvwXc&format=png&color=000000" },
-    { id: "Ensalada de Mejillones", url: "https://img.icons8.com/?size=100&id=5yvWsBhzlXaU&format=png&color=000000" },
-    { id: "Crema de zanahoria", url: "https://img.icons8.com/?size=100&id=26093&format=png&color=000000" },
-    { id: "Ajo Blanco", url: "https://img.icons8.com/?size=100&id=uniKKe6fNM9J&format=png&color=000000" },
-  ];
-  break;
-case 'Segundos':
-  comidas = [
-    { id: "Albondigas en Salsa", url: "https://img.icons8.com/?size=100&id=pZxYry6sxa64&format=png&color=000000" },
-    { id: "Pollo Asado con Miel", url: "https://img.icons8.com/?size=100&id=rq1htNPCZYz0&format=png&color=000000" },
-    { id: "Dorada con Mejillones", url: "https://img.icons8.com/?size=100&id=97437&format=png&color=000000" },
-    { id: "Chuletas de Cerdo con Miel", url: "https://img.icons8.com/?size=100&id=kHBakFotiYhY&format=png&color=000000"},
-    { id: "Pasta con Merluza Picada", url: "https://img.icons8.com/?size=100&id=80904&format=png&color=000000" },
-  ];
-  break;
-case 'Postres':
-  comidas = [
-    { id: "Tarta de Chocolate", url: "https://img.icons8.com/?size=100&id=87323&format=png&color=000000"},
-    { id: "Gelato", url: "https://img.icons8.com/?size=100&id=87323&format=png&color=000000" },
-    { id: "Tiramisú", url: "https://img.icons8.com/?size=100&id=vIAVMl0YismK&format=png&color=000000"},
-    { id: "Panna Cotta", url: "https://img.icons8.com/?size=100&id=wWLYI5Lwwztw&format=png&color=000000" },
-    { id: "Pastafrola", url: "https://img.icons8.com/?size=100&id=20876&format=png&color=000000"},
-  ];
-  break;
-case 'Bebidas':
-  comidas = [
-    { id: "Café", url: "https://img.icons8.com/?size=100&id=hCiex1L35nUt&format=png&color=000000" },
-    { id: "CocaCola", url: "https://img.icons8.com/?size=100&id=7xzdaY01UPxw&format=png&color=000000" },
-    { id: "Cerveza", url: "https://img.icons8.com/?size=100&id=13300&format=png&color=000000" },
-    { id: "Refresco de Naranja", url: "https://img.icons8.com/?size=100&id=AUF9Vyor9OEB&format=png&color=000000"},
-    { id: "Pisco Sour", url: "https://img.icons8.com/?size=100&id=g4ya0t-L-Ui_&format=png&color=000000" },
-  ];
-  break;
-}
-// constante para controlar el modal
-const [modalVisible, setModalVisible] = useState(false);
-// constante para controlar el valor  y cambio
-const [number, onChangeNumber] = React.useState('');
+  // switch que le asigna las comidas dependiendo del tipo
+  switch (categoria) {
+    case 'Entrantes':
+      comidas = menuimgd.Entrantes;
+      break;
+    case 'Primeros':
+      comidas = menuimgd.Primeros;
+      break;
+    case 'Segundos':
+      comidas = menuimgd.Segundos;
+      break;
+    case 'Postres':
+      comidas = menuimgd.Postres;
+      break;
+    case 'Bebidas':
+      comidas = menuimgd.Bebidas;
+      break;
+  }
+  // constante para controlar el modal
+  const [modalVisible, setModalVisible] = useState(false);
+  const openModal = (item) => {
+    setSelectedItem(item);
+    setModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+    setSelectedItem(null);
+  };
+  // constante para controlar el valor  y cambio
+  const [number, onChangeNumber] = React.useState('');
   return (
-    <View style={styles.container}>
-      {/* Título de la categoría */}
-      <Text style={styles.title}>Opciones para {categoria}</Text>
+    
+      <View style={styles.container}>
+        <Text style={styles.title}>Opciones para {categoria}</Text>
+        <View style={styles.grid}>
 
-      {/* Botones de las opciones */}
-      <View style={styles.grid}>
-        {/* modal para ingresar cantidad de elementos */}
-        <Modal animationType="slide" 
-        transparent={true}
-         visible={modalVisible}
-          onRequestClose={() => {Alert.alert("modal cerrado"); 
-          setModalVisible(!modalVisible)}}>
-              <View style={styles.viewModal}>
-                <View>
+          <Modal animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => { closeModal }}>
+            <View style={styles.viewModal}>
+              <View>
                 <Text style={styles.text}>INGRESA LA CANTIDAD</Text>
-                  <TextInput style={styles.input} onChangeText={onChangeNumber}
+                <TextInput style={styles.input} onChangeText={onChangeNumber}
                   value={number} keyboardType="numeric"></TextInput>
-                   <TouchableOpacity
-                style={styles.buttonModal}
-                onPress={() => setModalVisible(!modalVisible)}>
-                <Text style={styles.textStyle}>CONFIRMAR</Text>
-              </TouchableOpacity>
-                </View>
-               
+                <TouchableOpacity
+                  style={styles.buttonModal}
+                  onPress={() => {
+                    setModalVisible(!modalVisible)
+                    addComanda( mesa,selectedItem , number );
+                  }
+                  }>
+                  <Text style={styles.textStyle}>CONFIRMAR</Text>
+                </TouchableOpacity>
               </View>
-        </Modal>
-      {comidas.map((comida) =>
-        (<TouchableOpacity key={comida.id} style={styles.button} onPress={ () => setModalVisible(true)}
-         > {/* se le pasa el parametro categoria con valor id */}
+            </View>
+          </Modal>
+          {comidas.map((comida) =>
+          (<TouchableOpacity key={comida.id} style={styles.button} onPress={() => openModal(comida.id)}>
 
-          <Image style={styles.img} src={comida.url} />
-          <Text style={styles.text}> {comida.id}</Text>
+            <Image style={styles.img} src={comida.url} />
+            <Text style={styles.text}> {comida.id}</Text>
+          </TouchableOpacity>
+          ))}
+        </View>
+
+
+        <View style={styles.actionButtons}>
+          <TouchableOpacity style={styles.continueButton} onPress={() => { }}>
+            <Text style={styles.actionText}>Continuar</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.finalizeButton} onPress={() => { }}>
+            <Text style={styles.actionText}>Finalizar</Text>
+          </TouchableOpacity>
+        </View>
+        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+          <Text style={styles.backText}>Volver</Text>
         </TouchableOpacity>
-        ))}
       </View>
-
-      {/* Botones de acción (Continuar y Finalizar) */}
-      <View style={styles.actionButtons}>
-        <TouchableOpacity style={styles.continueButton} onPress={() => {}}>
-          <Text style={styles.actionText}>Continuar</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.finalizeButton} onPress={() => {}}>
-          <Text style={styles.actionText}>Finalizar</Text>
-        </TouchableOpacity>
-      </View>
-
-      {/* Botón para volver */}
-      <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-        <Text style={styles.backText}>Volver</Text>
-      </TouchableOpacity>
-    </View>
+  
   );
 }
 
 const styles = StyleSheet.create({
-  input:{
+  input: {
     height: 40,
     margin: 12, // se asignó las medidas para el input
     borderWidth: 1,
     padding: 10,
   },
-  viewModal:{
+  viewModal: {
     margin: 20,
     backgroundColor: "#17d244",
     borderRadius: 20, // medidas para el modal y color
@@ -156,7 +140,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginBottom: 20,
   },
-  buttonModal:{
+  buttonModal: {
     padding: 10,
     backgroundColor: "#f0f0f0",
     margin: 10,
