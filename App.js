@@ -5,7 +5,7 @@ import TPV_S_Principal from "./TPV_S_Principal";
 import Opciones_S from "./Opciones_S";
 import Insertar from "./Insertar";
 import OpcionesCategoria from "./OpcionesCategoria";
-import {ComandaProvider} from "./node_modules/AlmacenDatos"
+import {ComandaProvider} from "./AlmacenDatos"
 
 
 const Stack = createStackNavigator();

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { FlatList, View, Text, TouchableOpacity, StyleSheet, Image, Modal } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Image, Modal } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import menuimgd from "./assets/menuimg";
 import { useContext } from "react";
-import { ComandaContext } from "./node_modules/AlmacenDatos";
+import { ComandaContext } from "./AlmacenDatos";
 
 
 
